@@ -1,5 +1,7 @@
 // Jason & Rowan 2022 Global Game Jam
 
+import * as map from "./map.js";
+
 // Model
 let defaultGameData = {
   players : [
@@ -31,33 +33,29 @@ let defaultGameData = {
   }
 }
 
-export let my = {};
+export let my = {
+  viewState : "map"
+};
 
 export function init(saveGame){
   my.saveGame = saveGame || defaultGameData;
   my.gameLoopRunning = true;
   
-  let gameLoopFunction = async function () {
-    while(my.gameLoopRunning) {
-      render();
-      update();
-    }
-  }()
+  map.init();
+  
+//  let gameLoopFunction = async function () {
+//    while(my.gameLoopRunning) {
+//      render();
+//      update();
+//    }
+//  }()
   
 }
 
 export function render() {
-  my.renderCount = my.renderCount || 0;
-  
-  if (my.renderCount < 5) {
-    console.log("render: " + my.renderCount + "\n");
-    my.renderCount++;
-  }
-  else {
-    my.gameLoopRunning = false;
-  }
+  map.render();
 }
 
 export function update() {
-  
+  map.update();
 }

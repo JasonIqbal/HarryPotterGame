@@ -1,35 +1,36 @@
-export let my = {};
+export let my = {
+  originalReady : false
+};
 
-export function init(){
-  my.gameCanvas = document.getElementById('gameCanvas');
-  my.gameCanvas.width = 3300;
-  my.gameCanvas.height = 2550;
+let mapSize = {
+  width : 3300,
+  height : 2550
+};
+
+export function init(ctx){
   
-  my.ctx = gameCanvas.getContext('2d');
+  my.ctx = ctx;
   
   my.original = new Image();
   my.original.src = "../../images/bigMap.png";
   
-  
-  
   my.original.addEventListener('load', setReady, {once : true} );
-  
 }
 
-function setReady(event) {
-  my.original.ready = true;
-  my.ctx.drawImage(my.original, 0, 0);
+
+export function setReady(event) {
+  my.originalReady = true;
+  render();
 }
 
 export function render() {
-  if(my.original.ready) {
-    console.log("ready");
-    my.original.ready = false;
+  if(my.originalReady) {
+    my.ctx.drawImage(my.original, 0, 0);
   }
 }
 
 export function update() {
-  
+
 }
 
 export function deconstruct() {

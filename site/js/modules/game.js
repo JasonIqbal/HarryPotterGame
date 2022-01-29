@@ -37,16 +37,22 @@ export let my = {
   viewState : "map"
 };
 
-export function init(saveGame){
+export function init(saveGame, ctx){
   my.saveGame = saveGame || defaultGameData;
   my.gameLoopRunning = true;
   
-  map.init();
+  map.init(ctx);
   
+
+  my.ready = true; // must run last, right before the game loop starts.
+  
+  
+//  let i = 100;
 //  let gameLoopFunction = async function () {
-//    while(my.gameLoopRunning) {
+//    while(my.gameLoopRunning && i > 0) {
 //      render();
 //      update();
+//      i--;
 //    }
 //  }()
   

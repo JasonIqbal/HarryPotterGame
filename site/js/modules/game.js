@@ -1,6 +1,7 @@
 // Jason & Rowan 2022 Global Game Jam
 
 import * as map from "./map.js";
+import * as infoBoard from "./infoBoard.js";
 
 // Model
 let defaultGameData = {
@@ -42,26 +43,27 @@ export function init(saveGame, ctx){
   my.gameLoopRunning = true;
   
   map.init(ctx);
+  infoBoard.init(my.saveGame);
   
-
   my.ready = true; // must run last, right before the game loop starts.
   
-  
-//  let i = 100;
-//  let gameLoopFunction = async function () {
-//    while(my.gameLoopRunning && i > 0) {
-//      render();
-//      update();
-//      i--;
-//    }
-//  }()
-  
+  window.requestAnimationFrame(gameLoop);
+}
+
+function gameLoop(callTime) {
+  render();
+  update();
+  if(my.gameLoopRunning) {
+    window.requestAnimationFrame(gameLoop);
+  }
 }
 
 export function render() {
   map.render();
+  infoBoard.render();
 }
 
 export function update() {
   map.update();
+  infoBoard.update();
 }

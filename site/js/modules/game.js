@@ -12,8 +12,8 @@ let defaultGameData = {
       hp : 40,
       mp : 7,
       mapLocation : {
-        path : 0,
-        steps : 0
+        node : null,
+        id : 0
       }
       
     },
@@ -23,8 +23,8 @@ let defaultGameData = {
       hp : 40,
       mp : 7,
       mapLocation : { 
-        path : 0, 
-        steps : 0
+        node : null, 
+        id : 0
       }
     }
   ],
@@ -56,6 +56,16 @@ function gameLoop(callTime) {
   if(my.gameLoopRunning) {
     window.requestAnimationFrame(gameLoop);
   }
+}
+
+function currentPlayer() {
+  return (
+    my.saveGame.players.find( curPlay => curPlay.name === my.saveGame.turn.currentPlayer )
+  );
+}
+
+function locationState() {
+  return currentPlayer().locationState();
 }
 
 export function render() {

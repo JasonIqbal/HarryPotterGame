@@ -43,7 +43,7 @@ export function init(saveGame, ctx){
   my.gameLoopRunning = true;
   
   map.init(ctx);
-  infoBoard.init(my.saveGame);
+  infoBoard.init(my.saveGame, currentPlayer);
   
   my.ready = true; // must run last, right before the game loop starts.
   
@@ -65,7 +65,17 @@ function currentPlayer() {
 }
 
 function locationState() {
-  return currentPlayer().locationState();
+  let locNode = currentPlayer().mapLocation.node;
+  let locState = null;
+  
+  if (locNode) {
+    locState = locNode.locationState();
+  }
+  else {
+    locState = "Map";
+  }
+  
+  return locState;
 }
 
 export function render() {

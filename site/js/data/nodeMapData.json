@@ -1,0 +1,11 @@
+{
+  NodeMap : [
+    {
+      connectedNodes : [1],
+      id : 0,
+      actions : ["move"],
+      mapPosition : { x : 85, y : 1741},
+      mapName : "Map"
+    }
+  ]
+}

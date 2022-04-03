@@ -3,7 +3,7 @@
 import * as game from "./modules/game.js";
 
 function init() {
-  console.log("hello");
+//  console.log("hello");
   
   let gameCanvas = document.getElementById('gameCanvas');
   let controlPanel = document.getElementById('controlPanel');
@@ -26,7 +26,7 @@ function init() {
   game.init(null, ctx);
   
   function onWindowResize() {
-    console.log("resize");
+//    console.log("resize");
     // make sure scope is proper
 
     ctx.scale( 1 / scaleFactor.x, 1 / scaleFactor.y );

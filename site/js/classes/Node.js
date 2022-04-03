@@ -10,9 +10,8 @@ export default class Node {
   mapName = null; 
     // eg Map, Forest, Lake, ect...
   
-  constructor(nId) {
-    this.id = nId;
-    
+  constructor(nodeData) {
+    Object.assign(this, nodeData);
   }
   
   addNodes(arrayOfNodes) {

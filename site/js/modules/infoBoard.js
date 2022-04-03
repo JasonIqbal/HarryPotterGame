@@ -3,13 +3,11 @@ import Player from "../classes/player.js";
 
 export let my = {};
 
-export function init(saveGame, currentPlayer){
+export function init(saveGame, NodeMap, currentPlayer){
   my.players = [];
-  
   
   saveGame.players.forEach((person, order) => {
     my.players.push(new Player(order, person));
-    
   });
 }
 

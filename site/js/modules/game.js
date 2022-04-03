@@ -2,6 +2,10 @@
 
 import * as map from "./map.js";
 import * as infoBoard from "./infoBoard.js";
+import * as characterView from "./characterView.js";
+import * as NodeMapManager from "./nodeMap.js";
+
+// side note. make sure two players do not enter the same name.
 
 // Model
 let defaultGameData = {
@@ -29,21 +33,39 @@ let defaultGameData = {
     }
   ],
   turn : {
-    currentPlayer : null,
+    currentPlayerIndex : 0,
     hasMoved : false
   }
 }
 
 export let my = {
-  viewState : "map"
+  viewState : "map",
+  nodeMap : null
+};
+
+function loadMapNodeIntoPlayers() {
+  my.saveGame.players.forEach((person) => {
+    if(!person.mapLocation.node) {      
+      if(person.mapLocation.id < my.nodeMap.length && person.mapLocation.id >= 0) {
+        person.mapLocation.node = my.nodeMap[person.mapLocation.id]; // make into a Node class object
+      }
+      else {
+        person.mapLocation.id = 0;
+        person.mapLocation.node = my.nodeMap[0]; // make into a Node class object
+      }
+    }
+  });
 };
 
 export function init(saveGame, ctx){
   my.saveGame = saveGame || defaultGameData;
+  my.nodeMap = NodeMapManager.getNodeMap();
+  loadMapNodeIntoPlayers();
   my.gameLoopRunning = true;
   
   map.init(ctx);
-  infoBoard.init(my.saveGame, currentPlayer);
+  infoBoard.init(my.saveGame, my.nodeMap, currentPlayer);
+  characterView.init(my.saveGame);
   
   my.ready = true; // must run last, right before the game loop starts.
   
@@ -59,15 +81,14 @@ function gameLoop(callTime) {
 }
 
 function currentPlayer() {
-  return (
-    my.saveGame.players.find( curPlay => curPlay.name === my.saveGame.turn.currentPlayer )
-  );
+  return my.saveGame.players[my.saveGame.turn.currentPlayerIndex];
 }
 
 function locationState() {
   let locNode = currentPlayer().mapLocation.node;
   let locState = null;
   
+  // Default to "Map" location state
   if (locNode) {
     locState = locNode.locationState();
   }
@@ -79,11 +100,27 @@ function locationState() {
 }
 
 export function render() {
-  map.render();
+  switch (locationState()) {
+    case "Map" :
+      map.render();
+      break;
+    case "Forest" :
+      break;
+  }
+ 
   infoBoard.render();
+  characterView.render(locationState());
 }
 
 export function update() {
-  map.update();
+  switch (locationState()) {
+    case "Map" :
+      map.update();
+      break;
+    case "Forest" :
+      break;
+  }
+  
   infoBoard.update();
+  characterView.update();
 }

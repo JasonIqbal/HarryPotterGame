@@ -1,3 +1,5 @@
+// Jason & Rowan 2022 Global Game Jam 
+
 export let my = {
   originalReady : false
 };

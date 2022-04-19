@@ -47,11 +47,11 @@ function loadMapNodeIntoPlayers() {
   my.saveGame.players.forEach((person) => {
     if(!person.mapLocation.node) {      
       if(person.mapLocation.id < my.nodeMap.length && person.mapLocation.id >= 0) {
-        person.mapLocation.node = my.nodeMap[person.mapLocation.id]; // make into a Node class object
+        person.mapLocation.node = my.nodeMap[person.mapLocation.id];
       }
       else {
         person.mapLocation.id = 0;
-        person.mapLocation.node = my.nodeMap[0]; // make into a Node class object
+        person.mapLocation.node = my.nodeMap[0];
       }
     }
   });

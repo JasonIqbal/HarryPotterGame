@@ -1,6 +1,10 @@
 //Copywrite Jason Iqbal 2021
 export let my = {};
 
+export const Harry = 1;
+export const Hermione = 2;
+export const Ron = 4;
+
 export function init(saveGame){
   my.saveGame = saveGame;
 
@@ -13,22 +17,22 @@ export function init(saveGame){
   my.ronImg.src = "../../images/ron.png";
   
   my.ready = 0;
-  my.harryImg.addEventListener('load', ()=>{setReady("Harry")}, {once : true});
-  my.hermioneImg.addEventListener('load', ()=>{setReady("Hermione")}, {once : true});
-  my.ronImg.addEventListener('load', ()=>{setReady("Ron")}, {once : true});
+  my.harryImg.addEventListener('load', ()=>{setReady(Harry)}, {once : true});
+  my.hermioneImg.addEventListener('load', ()=>{setReady(Hermione)}, {once : true});
+  my.ronImg.addEventListener('load', ()=>{setReady(Ron)}, {once : true});
 }
 
 // fun with bit flags
 export function setReady(name) {
   switch (name) {
-    case "Harry" :
-      my.ready += 1;
+    case Harry :
+      my.ready |= Harry;
       break;
-    case "Hermione" :
-      my.ready += 2;
+    case Hermione :
+      my.ready |= Hermione;
       break;
-    case "Ron" :
-      my.ready += 4;
+    case Ron :
+      my.ready |= Ron;
       break;
   }
   
@@ -50,7 +54,7 @@ function drawCharacter(character, node) {
 }
 
 export function render(currentLocation) {
-  if(my.ready === 7) {
+  if(my.ready === Harry | Hermione | Ron) {
     my.saveGame.players.filter( plr => plr.mapLocation.node.mapName === currentLocation).forEach( (player) => {
       drawCharacter(player.character, player.mapLocation.node);
     });

@@ -5,16 +5,16 @@ export const Harry = 1;
 export const Hermione = 2;
 export const Ron = 4;
 
-export function init(saveGame){
+export function init(saveGame, ctx){
   my.saveGame = saveGame;
-
+  my.ctx = ctx;
   my.harryImg = new Image();
   my.hermioneImg = new Image();
   my.ronImg = new Image();
   
   my.harryImg.src = "../../images/harry.png";
-  my.hermioneImg.src = "../../images/hermione.png";
-  my.ronImg.src = "../../images/ron.png";
+//  my.hermioneImg.src = "../../images/hermione.png";
+//  my.ronImg.src = "../../images/ron.png";
   
   my.ready = 0;
   my.harryImg.addEventListener('load', ()=>{setReady(Harry)}, {once : true});
@@ -41,7 +41,8 @@ export function setReady(name) {
 
 function drawCharacter(character, node) {
   switch (character) {
-    case "Harry" : 
+    case "Harry" :
+      my.ctx.drawImage(my.harryImg, node.mapPosition.x - my.harryImg.width / 2, node.mapPosition.y - my.harryImg.height / 2);
       break;
     case "Hermione" :
       break;

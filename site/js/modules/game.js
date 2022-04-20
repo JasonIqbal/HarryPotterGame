@@ -65,7 +65,7 @@ export function init(saveGame, ctx){
   
   map.init(ctx);
   infoBoard.init(my.saveGame, my.nodeMap, currentPlayer);
-  characterView.init(my.saveGame);
+  characterView.init(my.saveGame, ctx);
   
   my.ready = true; // must run last, right before the game loop starts.
   

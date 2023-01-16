@@ -4,6 +4,7 @@ import * as map from "./map.js";
 import * as infoBoard from "./infoBoard.js";
 import * as characterView from "./characterView.js";
 import * as NodeMapManager from "./nodeMap.js";
+import * as turnManager from "./turnManager.js";
 
 // side note. make sure two players do not enter the same name.
 
@@ -66,6 +67,7 @@ export function init(saveGame, ctx){
   map.init(ctx);
   infoBoard.init(my.saveGame, my.nodeMap, currentPlayer);
   characterView.init(my.saveGame, ctx);
+  turnManager.init(my.saveGame, my.nodeMap, currentPlayer, ctx);
   
   my.ready = true; // must run last, right before the game loop starts.
   
@@ -110,6 +112,7 @@ export function render() {
  
   infoBoard.render();
   characterView.render(locationState());
+  turnManager.render();
 }
 
 export function update() {
@@ -123,4 +126,5 @@ export function update() {
   
   infoBoard.update();
   characterView.update();
+  turnManager.update();
 }
